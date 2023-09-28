@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/css.css">
+    <title>ZB OJ | 私信</title>
+    <style>
+        #ui {
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0px 0px 20px rgb(0, 0, 0, 0.13);
+            width: calc(max(min(76%, 800px), 500px));
+            height: 500px;
+            display: flex;
+        }
+
+        #com-user {
+            height: 500px;
+            width: calc(max(30%, 180px) - 20px);
+            padding-left: 10px;
+            padding-right: 10px;
+            border-right: 1px solid #858585;
+        }
+
+        #com-div {
+            height: 500px;
+            width: calc(100% - max(30%, 180px) - 20px);
+            padding-left: 10px;
+            display: none;
+        }
+
+        .text-title {
+            color: #57a3f3;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+
+        .text-title-2 {
+            color: rgb(63, 63, 63);
+            font-size: 17px;
+            margin-top: 15px;
+            padding-bottom: 10px;
+        }
+
+        .UserDiv {
+            width: calc(100%);
+            height: 48px;
+            border-bottom: 1px solid #b6b6b6;
+            display: flex;
+        }
+
+        .UserAvatar {
+            width: 33px;
+            height: 33px;
+            border-radius: 60px;
+            border: 1px solid #b6b6b6;
+            margin-left: 15px;
+            margin-top: 7px;
+        }
+
+        .UserName {
+            font-size: 16px;
+            margin-top: 15px;
+            margin-left: 10px;
+        }
+
+        #UserBox {
+            height: 440px;
+            overflow: hidden;
+            overflow: auto;
+            scrollbar-width: thin;
+        }
+
+        #UserBox::-webkit-scrollbar {
+            display: none;
+        }
+
+        #messbox {
+            width: calc(100%);
+            height: 285px;
+            padding-top: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            overflow: auto;
+            scrollbar-width: thin;
+        }
+
+        #messbox::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mess-div {
+            width: calc(100% - 30px);
+            height: 80px;
+            margin-left: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #bbbbbb;
+            box-shadow: 0px 3px 20px rgb(0, 0, 0, 0.2);
+            outline: none;
+            resize: none;
+        }
+
+        #send-mess {
+            background-color: rgb(38, 136, 201);
+            color: #ffffff;
+            border: 0px;
+            font-size: 13px;
+            font-weight: 600;
+            width: 56px;
+            height: 30px;
+            border-radius: 6px;
+            margin-top: 4px;
+            box-shadow: 0px 3px 20px rgb(0, 0, 0, 0.3);
+            margin-left: calc(100% - 70px);
+            transition: all .3s ease;
+        }
+
+        #send-mess:hover {
+            background-color: rgb(0, 153, 255);
+        }
+
+        #send-tip {
+            font-size: 13px;
+            font-weight: 400;
+            color: #979797;
+            margin-top: -25px;
+            margin-left: calc(100% - 200px);
+        }
+
+        .other-mess {
+            font-size: 14px;
+            color: #000000;
+            padding-left: 10px;
+            margin-top: -5px;
+        }
+
+        .my-mess {
+            font-size: 14px;
+            color: #000000;
+            padding-left: 10px;
+            margin-top: -5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header" id="Div-Header">
+        <div class="headerdiv">
+            <a id="header-title" href="http://10.31.3.47:9090">&nbsp ZB OJ</a>
+            <div
+                style="position: fixed; margin-left: 50px; margin-top: -45px; background-color: transparent; width: 400px;">
+                <div class="path-item" align="center" onclick="Go('home')">
+                    <span>首页</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('problem')">
+                    <span>题目</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('match')">
+                    <span>比赛</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('eval-all')">
+                    <span>测评</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('rank')">
+                    <span>排名</span>
+                </div>
+            </div>
+            <div align="right" id="LoRe-div">
+                <button id="login-button">
+                    <span>登陆</span>
+                </button>
+                <button id="regis-button">
+                    <span>注册</span>
+                </button>
+            </div>
+            <div align="right" id="user-box">
+                <button id="user-button">
+                    <span id="username-text">Scorpio</span>
+                </button>
+                <div id="user-div" align="center">
+                    <button class="app-item" style="margin-top: 5px;" onclick="Go('user-home')">我的主页</button>
+                    <button class="app-item" onclick="Go('eval-me')">我的提交</button>
+                    <button class="app-item" onclick="Go('setting')">我的设置</button>
+                    <button class="app-item" onclick="Go('admin')" id="admin-button">后台管理</button>
+                    <div style="margin-top: 5px; width: 100%; height: 1px; background-color: #dedee0;"></div>
+                    <button class="app-item" style="margin-top: 5px;" onclick="out()">退出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login -->
+    <div id="login-box">
+        <div id="login-div">
+            <div id="login-header">
+                <h1>欢迎来到 ZB Online Judge</h1>
+                <div class="line-box">
+                    <div id="line1"></div>
+                    <div id="line2"></div>
+                </div>
+                <div style="height: 1px; background-color: #dddee1;"></div>
+                <input id="user-input" type="text" placeholder="用户名">
+                <input id="pass-input" type="password" placeholder="密码">
+                <button id="login-button-true" onclick="Login()">登陆</button>
+                <button class="no-account" onclick="reg()">还没账号，立即注册!</button>
+                <button class="no-pass">忘记密码</button>
+                <h1 id="wrong1">用户名不可为空</h1>
+                <h1 id="wrong2">密码不可为空</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- reg -->
+    <div id="reg-box">
+        <div id="reg-div">
+            <div id="reg-header">
+                <h1>欢迎来到 ZB Online Judge</h1>
+                <div class="line-box2">
+                    <div id="line3"></div>
+                    <div id="line4"></div>
+                </div>
+                <div style="height: 1px; background-color: #dddee1;"></div>
+                <input id="user-input2" type="text" placeholder="用户名">
+                <input id="email-input" type="text" placeholder="电子邮箱">
+                <input id="pass-input2" type="password" placeholder="密码">
+                <input id="pass2-input" type="password" placeholder="确认密码">
+                <button id="login-button-true" onclick="Reg()">注册</button>
+                <button id="login-button-false" onclick="login()">已经注册？现在登录!</button>
+                <h1 id="wrong3">用户名不可为空</h1>
+                <h1 id="wrong4">邮箱格式不正确</h1>
+                <h1 id="wrong5">密码不可为空</h1>
+                <h1 id="wrong6">密码不匹配</h1>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br><br>
+
+    <div align="center">
+        <div id="ui" align="left">
+            <div id="com-user">
+                <h4 class="text-title" align="center">私信</h4>
+                <div class="line-notice" style="margin-top: -18px; border-top: 1px solid #858585 !important;"></div>
+                <div id="UserBox"></div>
+            </div>
+            <div id="com-div">
+                <h4 id="fname" class="text-title-2" align="center"></h4>
+                <div class="line-notice" style="margin-top: -18px; border-top: 1px solid #858585 !important;"></div>
+                <div id="messbox">
+                    <!-- Message -->
+                    <!-- <pre class="other-mess">Hello?</pre>
+                    <pre class="other-mess">Who are you?</pre>
+                    <pre class="my-mess">不告诉你</pre>
+                    <pre class="other-mess">哦</pre> -->
+                </div>
+                <div class="line-notice" style="margin-top: -18px; border-top: 1px solid #858585 !important;"></div>
+                <textarea class="mess-div" id="message" onkeydown="tab(this)"></textarea>
+                <button id="send-mess" onclick="SendMess()">发送</button>
+                <h6 id="send-tip">按 Ctrl+Enter 键发送</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <br><br><br><br><br><br>
+    <div id="footer" align="center">
+        <span>ZB Online Judge by <a href="https://www.scorpiolimit.top">Scorpio</a></span>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/js.min.js"></script>
+    <script>
+        var Path = "10.31.3.47:9090";
+        var BackPath = "10.31.3.47:9900";
+        function Go(path) {
+            if (path == 'home') {
+                window.location.replace(`http://${Path}`);
+            }
+            else if (path == 'user-home') {
+                window.location.replace(`http://${Path}/user-home`);
+            }
+            else if (path == 'problem') {
+                window.location.replace(`http://${Path}/problem`);
+            }
+            else if (path == 'match') {
+                // Somethings.
+            }
+            else if (path == 'eval-all') {
+                window.location.replace(`http://${Path}/eval`);
+            }
+            else if (path == 'eval-me') {
+                window.location.replace(`http://${Path}/eval/myself`);
+            }
+            else if (path == 'rank') {
+                window.location.replace(`http://${Path}/rank`);
+            }
+            else if (path == 'setting') {
+                // Somethings.
+            }
+            else if (path == 'admin') {
+                window.location.replace(`http://${Path}/admin`);
+            }
+        }
+        function tab(obj) {
+            if (event.keyCode == 9) {
+                event.preventDefault();
+                const start = obj.selectionStart;
+                const end = obj.selectionEnd;
+                const code = obj.value;
+                const indentedCode = code.substring(0, start) + '  ' + code.substring(end);
+                obj.value = indentedCode;
+                obj.setSelectionRange(start + 2, start + 2);
+            }
+        }
+        var flag = 0;
+        var flag_app = 0;
+        document.querySelector('#user-button').addEventListener('click', function () {
+            if (!flag_app) {
+                flag_app = 1;
+                document.querySelector('#user-button').style = "color: #57a3f3;";
+                document.getElementById("user-div").style = "display: block";
+            }
+            else {
+                flag_app = 0;
+                document.querySelector('#user-button').style = "color: #414141;";
+                document.getElementById("user-div").style = "display: none";
+            }
+        });
+        function deleteCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+        function getcookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    const value = cookie.substring(name.length + 1);
+                    return decodeURIComponent(value);
+                }
+            }
+            return null;
+        }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toGMTString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+
+        function deleteCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+        function CheckUser() {
+            var user = getcookie('name');
+            var mod = getcookie('mod');
+            var str = getcookie('str');
+            if (!user || !mod || !str) {
+                deleteCookie('name');
+                deleteCookie('mod');
+                deleteCookie('str');
+                window.location.replace(`http://${Path}`);
+            }
+        }
+        let usr = [];
+        let messlist = [];
+        function GetMessage() {
+            var issuer = getcookie('name');
+            var receier = document.getElementById('fname').innerText;
+            fetch(`http://${BackPath}/api/getmess`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ issuer: issuer, receier: receier, mess: message })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (messlist.length != data.length) {
+                        messlist = data;
+                        const box = document.getElementById('messbox');
+                        box.innerHTML = '';
+                        data.forEach(mess => {
+                            const pre = document.createElement('pre');
+                            pre.classList.add('other-mess');
+                            pre.innerHTML = `${mess.issuer}: ${mess.message}`;
+                            box.appendChild(pre);
+                        });
+                        box.scrollTop = box.scrollHeight;
+                    }
+                })
+        }
+        function GetMessageTwo(receier) {
+            var issuer = getcookie('name');
+            fetch(`http://${BackPath}/api/getmess`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ issuer: issuer, receier: receier, mess: message })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    messlist = data;
+                    const box = document.getElementById('messbox');
+                    box.innerHTML = '';
+                    data.forEach(mess => {
+                        const pre = document.createElement('pre');
+                        pre.classList.add('other-mess');
+                        pre.innerHTML = `${mess.issuer}: ${mess.message}`;
+                        box.appendChild(pre);
+                    });
+                    box.scrollTop = box.scrollHeight;
+                })
+        }
+        setInterval(() => {
+            GetMessage();
+        }, 1000);
+        var Sname = '';
+        function SendMess() {
+            var message = document.getElementById('message').value;
+            if (message == '') return;
+            document.getElementById('message').value = '';
+            var user = getcookie('name');
+            fetch(`http://${BackPath}/api/mess`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ issuer: user, receier: Sname, mess: message })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    GetMessage();
+                })
+        }
+        document.onkeydown = function () {
+            if (event.ctrlKey) {
+                if (event.keyCode == 13) {
+                    SendMess();
+                }
+            }
+        }
+        var FC = 0;
+        function Ch(name) {
+            document.getElementById('com-div').style = "display: block;";
+            document.getElementById('fname').innerHTML = name;
+            document.getElementById('message').value = '';
+            Sname = name;
+            GetMessageTwo(name);
+        }
+        function UserList() {
+            var myname = getcookie('name');
+            fetch(`http://${BackPath}/api/userlist`)
+                .then(response => response.json())
+                .then(data => {
+                    const UserList = document.getElementById('UserBox');
+                    UserList.innerHTML = '';
+                    usr = data;
+                    data.forEach(list => {
+                        if (list.name != myname) {
+                            const userbox = document.createElement('div');
+                            userbox.classList.add('UserDiv');
+                            const avatar = document.createElement('img');
+                            avatar.classList.add('UserAvatar');
+                            avatar.src = `../img/${list.uid}.png`;
+                            const name = document.createElement('h4');
+                            name.classList.add('UserName');
+                            name.innerHTML = list.name;
+                            userbox.appendChild(avatar);
+                            userbox.appendChild(name);
+                            UserList.appendChild(userbox);
+                            userbox.onclick = function () {
+                                Ch(list.name);
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    // window.alert('接受信息失败');
+                });
+        }
+        function init() {
+            document.querySelector('#login-box').style = "display: none;";
+            document.querySelector('#reg-box').style = "display: none;";
+            var name = getcookie('name');
+            var mod = getcookie('mod');
+            var str = getcookie('str');
+            CheckUser();
+            UserList();
+        }
+        init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/css.css">
+    <title>ZB OJ | 题目列表</title>
+    <style>
+        #create-button {
+            background-color: #00b7ff;
+            color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 20px rgb(0, 0, 0, 0.1);
+            font-weight: 600;
+            font-size: 15px;
+            border: 0px;
+            transform: translateY(-5px);
+            padding-top: 2px;
+            padding-bottom: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header" id="Div-Header">
+        <div class="headerdiv">
+            <a id="header-title" href="http://10.31.3.47:9090">&nbsp ZB OJ</a>
+            <div
+                style="position: fixed; margin-left: 50px; margin-top: -45px; background-color: transparent; width: 400px;">
+                <div class="path-item" align="center" onclick="Go('home')">
+                    <span>首页</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('problem')" id="path-now">
+                    <span>题目</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('match')">
+                    <span>比赛</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('eval-all')">
+                    <span>测评</span>
+                </div>
+                <div class="path-item" align="center" onclick="Go('rank')">
+                    <span>排名</span>
+                </div>
+            </div>
+            <div align="right" id="LoRe-div">
+                <button id="login-button">
+                    <span>登陆</span>
+                </button>
+                <button id="regis-button">
+                    <span>注册</span>
+                </button>
+            </div>
+            <div align="right" id="user-box">
+                <button id="user-button">
+                    <span id="username-text">Scorpio</span>
+                </button>
+                <div id="user-div" align="center">
+                    <button class="app-item" style="margin-top: 5px;" onclick="Go('user-home')">我的主页</button>
+                    <button class="app-item" onclick="Go('eval-me')">我的提交</button>
+                    <button class="app-item" onclick="Go('setting')">我的设置</button>
+                    <button class="app-item" onclick="Go('admin')" id="admin-button">后台管理</button>
+                    <div style="margin-top: 5px; width: 100%; height: 1px; background-color: #dedee0;"></div>
+                    <button class="app-item" style="margin-top: 5px;" onclick="out()">退出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login -->
+    <div id="login-box">
+        <div id="login-div">
+            <div id="login-header">
+                <h1>欢迎来到 ZB Online Judge</h1>
+                <div class="line-box">
+                    <div id="line1"></div>
+                    <div id="line2"></div>
+                </div>
+                <div style="height: 1px; background-color: #dddee1;"></div>
+                <input id="user-input" type="text" placeholder="用户名">
+                <input id="pass-input" type="password" placeholder="密码">
+                <button id="login-button-true" onclick="Login()">登陆</button>
+                <button class="no-account" onclick="reg()">还没账号，立即注册!</button>
+                <button class="no-pass">忘记密码</button>
+                <h1 id="wrong1">用户名不可为空</h1>
+                <h1 id="wrong2">密码不可为空</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- reg -->
+    <div id="reg-box">
+        <div id="reg-div">
+            <div id="reg-header">
+                <h1>欢迎来到 ZB Online Judge</h1>
+                <div class="line-box2">
+                    <div id="line3"></div>
+                    <div id="line4"></div>
+                </div>
+                <div style="height: 1px; background-color: #dddee1;"></div>
+                <input id="user-input2" type="text" placeholder="用户名">
+                <input id="email-input" type="text" placeholder="电子邮箱">
+                <input id="pass-input2" type="password" placeholder="密码">
+                <input id="pass2-input" type="password" placeholder="确认密码">
+                <button id="login-button-true" onclick="Reg()">注册</button>
+                <button id="login-button-false" onclick="login()">已经注册？现在登录!</button>
+                <h1 id="wrong3">用户名不可为空</h1>
+                <h1 id="wrong4">邮箱格式不正确</h1>
+                <h1 id="wrong5">密码不可为空</h1>
+                <h1 id="wrong6">密码不匹配</h1>
+            </div>
+        </div>
+    </div>
+
+    <div align="center">
+        <br><br><br>
+        <div id="userbox">
+            <h1 class="notice-h1">题目</h1>
+            <button id="create-button">新建题目</button>
+            <div class="line-notice"></div>
+            <br>
+            <div class="user-box">
+                <h5>题目编号</h5>
+                <h5 style="margin-right: 105px;"></h5>
+                <h5>题目名称</h5>
+                <h5 style="margin-left: 105px;"></h5>
+                <h5>通过情况</h5>
+            </div>
+            <!-- Problem List -->
+            <div id="userlist"></div>
+            <br>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <br><br><br><br><br><br>
+    <div id="footer" align="center">
+        <span>ZB Online Judge by <a href="https://www.scorpiolimit.top">Scorpio</a></span>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/js.min.js"></script>
+    <script>
+        var Path = "10.31.3.47:9090";
+        var BackPath = "10.31.3.47:9900";
+        function Go(path) {
+            if (path == 'home') {
+                window.location.replace(`http://${Path}`);
+            }
+            else if (path == 'user-home') {
+                window.location.replace(`http://${Path}/user-home`);
+            }
+            else if (path == 'problem') {
+                window.location.replace(`http://${Path}/problem`);
+            }
+            else if (path == 'match') {
+                // Somethings.
+            }
+            else if (path == 'eval-all') {
+                window.location.replace(`http://${Path}/eval`);
+            }
+            else if (path == 'eval-me') {
+                window.location.replace(`http://${Path}/eval/myself`);
+            }
+            else if (path == 'rank') {
+                window.location.replace(`http://${Path}/rank`);
+            }
+            else if (path == 'setting') {
+                // Somethings.
+            }
+            else if (path == 'admin') {
+                window.location.replace(`http://${Path}/admin`);
+            }
+        }
+        var flag = 0;
+        var flag_app = 0;
+        document.querySelector('#user-button').addEventListener('click', function () {
+            if (!flag_app) {
+                flag_app = 1;
+                document.querySelector('#user-button').style = "color: #57a3f3;";
+                document.getElementById("user-div").style = "display: block";
+            }
+            else {
+                flag_app = 0;
+                document.querySelector('#user-button').style = "color: #414141;";
+                document.getElementById("user-div").style = "display: none";
+            }
+        });
+        function deleteCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+        function getcookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    const value = cookie.substring(name.length + 1);
+                    return decodeURIComponent(value);
+                }
+            }
+            return null;
+        }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toGMTString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+
+        function deleteCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+        function CheckUser() {
+            var user = getcookie('name');
+            var mod = getcookie('mod');
+            var str = getcookie('str');
+            if (!user || !mod || !str) {
+                deleteCookie('name');
+                deleteCookie('mod');
+                deleteCookie('str');
+                window.location.replace(`http://${Path}`);
+            }
+        }
+        function ProblemList() {
+            fetch('http://10.31.3.47:9900/api/problemlist')
+                .then(response => response.json())
+                .then(data => {
+                    const UserList = document.getElementById('userlist');
+                    UserList.innerHTML = '';
+                    data.forEach(list => {
+                        const userbox = document.createElement('div');
+                        userbox.classList.add('user-box-2');
+                        const uid = document.createElement('h5');
+                        uid.classList.add('user-uid');
+                        uid.innerHTML = list.pid;
+                        const userleft = document.createElement('h5');
+                        userleft.classList.add('user-left');
+                        const name = document.createElement('h5');
+                        name.classList.add('user-name-h5');
+                        name.innerHTML = list.name;
+                        const userright = document.createElement('h5');
+                        userright.classList.add('user-right');
+                        const pro = document.createElement('h5');
+                        pro.classList.add('user-pro');
+                        pro.innerHTML = list.ac + '/' + list.all;
+                        userbox.appendChild(uid);
+                        userbox.appendChild(userleft);
+                        userbox.appendChild(name);
+                        userbox.appendChild(userright);
+                        userbox.appendChild(pro);
+                        UserList.appendChild(userbox);
+                        userbox.onclick = function () {
+                            window.location.replace(`http://${Path}/problem/pro?problem=${list.pid}`);
+                        }
+                    });
+                })
+                .catch(error => {
+                    // window.alert('接受信息失败');
+                });
+        }
+        function init() {
+            document.querySelector('#login-box').style = "display: none;";
+            document.querySelector('#reg-box').style = "display: none;";
+            var name = getcookie('name');
+            var mod = getcookie('mod');
+            var str = getcookie('str');
+            if (mod == 'admin') {
+                document.getElementById('create-button').style = "display: block;";
+                document.getElementById('create-button').onclick = function () {
+                    window.location.replace(`http://${Path}/problem/create`);
+                }
+            }
+            CheckUser();
+            ProblemList();
+        }
+        init();
+    </script>
+</body>
+
+</html>

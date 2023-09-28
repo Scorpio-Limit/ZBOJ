@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/css.css">
+    <title id="pagetitle">ZB OJ | 后台管理</title>
+    <style>
+        .ui {
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0px 0px 20px rgb(0, 0, 0, 0.13);
+            width: calc(max(min(76%, 600px), 400px));
+        }
+
+        .ui>.title {
+            font-size: 18px;
+            color: #57a3f3;
+            padding-top: 5px;
+        }
+
+        .user-name-1 {
+            width: 120px;
+        }
+
+        .user-name-2 {
+            font-size: 16px;
+            width: 120px;
+            padding-top: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header" id="Div-Header">
+        <div class="headerdiv">
+            <a id="header-title" href="http://10.31.3.47:9090">&nbsp ZB OJ</a>
+            <div
+                style="position: fixed; margin-left: 50px; margin-top: -45px; background-color: transparent; width: 400px;">
+                <div class="path-item" align="center" onclick="Go('server')" id="path-now">
+                    <span>服务器</span>
+                </div>
+            </div>
+            <div align="right" id="LoRe-div">
+                <button id="login-button">
+                    <span>登陆</span>
+                </button>
+                <button id="regis-button">
+                    <span>注册</span>
+                </button>
+            </div>
+            <div align="right" id="user-box">
+                <button id="user-button">
+                    <span id="username-text">Scorpio</span>
+                </button>
+                <div id="user-div" align="center">
+                    <button class="app-item" style="margin-top: 5px;" onclick="Go('user-home')">我的主页</button>
+                    <button class="app-item" onclick="Go('eval-me')">我的提交</button>
+                    <button class="app-item" onclick="Go('setting')">我的设置</button>
+                    <button class="app-item" onclick="Go('admin')" id="admin-button">后台管理</button>
+                    <div style="margin-top: 5px; width: 100%; height: 1px; background-color: #dedee0;"></div>
+                    <button class="app-item" style="margin-top: 5px;" onclick="out()">退出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login -->
+    <div id="login-box">
+        <div id="login-div">
+            <div id="login-header">
+                <h1>欢迎来到 ZB Online Judge</h1>
+                <div class="line-box">
+                    <div id="line1"></div>
+                    <div id="line2"></div>
+                </div>
+                <div style="height: 1px; background-color: #dddee1;"></div>
+                <input id="user-input" type="text" placeholder="用户名">
+                <input id="pass-input" type="password" placeholder="密码">
+                <button id="login-button-true" onclick="Login()">登陆</button>
+                <button class="no-account" onclick="reg()">还没账号，立即注册!</button>
+                <button class="no-pass">忘记密码</button>
+                <h1 id="wrong1">用户名不可为空</h1>
+                <h1 id="wrong2">密码不可为空</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- reg -->
+    <div id="reg-box">
+        <div id="reg-div">
+            <div id="reg-header">
+                <h1>欢迎来到 ZB Online Judge</h1>
+                <div class="line-box2">
+                    <div id="line3"></div>
+                    <div id="line4"></div>
+                </div>
+                <div style="height: 1px; background-color: #dddee1;"></div>
+                <input id="user-input2" type="text" placeholder="用户名">
+                <input id="email-input" type="text" placeholder="电子邮箱">
+                <input id="pass-input2" type="password" placeholder="密码">
+                <input id="pass2-input" type="password" placeholder="确认密码">
+                <button id="login-button-true" onclick="Reg()">注册</button>
+                <button id="login-button-false" onclick="login()">已经注册？现在登录!</button>
+                <h1 id="wrong3">用户名不可为空</h1>
+                <h1 id="wrong4">邮箱格式不正确</h1>
+                <h1 id="wrong5">密码不可为空</h1>
+                <h1 id="wrong6">密码不匹配</h1>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div align="center">
+        <div class="ui" align="left">
+            <h4 class="title" align="center">服务器</h4>
+            <div class="line-notice" style="margin-top: -18px;"></div>
+            <br>
+            <div class="user-box">
+                <h5>名称</h5>
+                <h5 style="margin-right: 90px;"></h5>
+                <h5>地址</h5>
+                <h5 style="margin-left: 90px;"></h5>
+                <h5>状况</h5>
+                <h5 style="margin-left: 90px;"></h5>
+                <h5>延迟</h5>
+            </div>
+            <div id="userlist">
+                <div class="user-box" align="center">
+                    <h5 class="user-name-1">主站</h5>
+                    <h5 class="user-name-2">10.31.3.47:9090</h5>
+                    <h5 class="user-name-1" id="sta-1"></h5>
+                    <h5 class="user-name-1" id="time-1"></h5>
+                </div>
+                <div class="user-box" align="center">
+                    <h5 class="user-name-1">后端</h5>
+                    <h5 class="user-name-2">10.31.3.47:9900</h5>
+                    <h5 class="user-name-1" id="sta-2"></h5>
+                    <h5 class="user-name-1" id="time-2"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <br><br>
+    <div id="footer" align="center">
+        <span>ZB Online Judge by <a href="https://www.scorpiolimit.top">Scorpio</a></span>
+    </div>
+    <!-- JavaScript -->
+    <script src="../../js/js.min.js"></script>
+    <script>
+        var Path = "10.31.3.47:9090";
+        var BackPath = "10.31.3.47:9900";
+        var JudgePath = "10.31.3.47:9901";
+        function Go(path) {
+            if (path == 'home') {
+                window.location.replace(`http://${Path}`);
+            }
+            else if (path == 'user-home') {
+                window.location.replace(`http://${Path}/user-home`);
+            }
+            else if (path == 'problem') {
+                window.location.replace(`http://${Path}/problem`);
+            }
+            else if (path == 'match') {
+                // Somethings.
+            }
+            else if (path == 'eval-all') {
+                window.location.replace(`http://${Path}/eval`);
+            }
+            else if (path == 'eval-me') {
+                window.location.replace(`http://${Path}/eval/myself`);
+            }
+            else if (path == 'rank') {
+                window.location.replace(`http://${Path}/rank`);
+            }
+            else if (path == 'setting') {
+                // Somethings.
+            }
+            else if (path == 'admin') {
+                window.location.replace(`http://${Path}/admin`);
+            }
+        }
+        var flag = 0;
+        var flag_app = 0;
+        document.querySelector('#user-button').addEventListener('click', function () {
+            if (!flag_app) {
+                flag_app = 1;
+                document.querySelector('#user-button').style = "color: #57a3f3;";
+                document.getElementById("user-div").style = "display: block";
+            }
+            else {
+                flag_app = 0;
+                document.querySelector('#user-button').style = "color: #414141;";
+                document.getElementById("user-div").style = "display: none";
+            }
+        });
+        function deleteCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+        function getcookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    const value = cookie.substring(name.length + 1);
+                    return decodeURIComponent(value);
+                }
+            }
+            return null;
+        }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toGMTString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+
+        function deleteCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+        function CheckUser() {
+            var user = getcookie('name');
+            var mod = getcookie('mod');
+            var str = getcookie('str');
+            if (!user || !mod || !str) {
+                deleteCookie('name');
+                deleteCookie('mod');
+                deleteCookie('str');
+                window.location.replace(`http://${Path}`);
+            }
+        }
+        function Letter(num) {
+            if (num >= 0 && num <= 25) return String.fromCharCode('a'.charCodeAt(0) + num);
+            else if (num >= 26 && num <= 51) return String.fromCharCode('A'.charCodeAt(0) + num - 26);
+        }
+        function CheckServer() {
+            let str = '';
+            for (var i = 1; i <= 20; ++i) {
+                var opt = Math.floor(Math.random() * 2);
+                if (!opt) {
+                    var num = Math.floor(Math.random() * 10);
+                    str += num;
+                }
+                else {
+                    var letter = Letter(Math.floor(Math.random() * 52));
+                    str += letter;
+                }
+            }
+            let timeF = new Date().getTime();
+            fetch(`http://${BackPath}/api/server`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ str })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const endTime = new Date().getTime();
+                    const elapsedTime = endTime - timeF;
+                    if (elapsedTime <= 50) {
+                        document.getElementById('time-2').innerHTML = `${elapsedTime}ms`;
+                        document.getElementById('time-2').style = "color:rgb(0, 201, 46); padding-top: 3px;";
+                        document.getElementById('sta-2').innerHTML = "流畅";
+                        document.getElementById('sta-2').style = "color:rgb(0, 201, 46);";
+                    }
+                    else if (elapsedTime <= 100) {
+                        document.getElementById('time-2').innerHTML = `${elapsedTime}ms`;
+                        document.getElementById('time-2').style = "color:#ff7900; padding-top: 3px;";
+                        document.getElementById('sta-2').innerHTML = "微卡";
+                        document.getElementById('sta-2').style = "color:#ff7900;";
+                    }
+                    else if (elapsedTime <= 200) {
+                        document.getElementById('time-2').innerHTML = `${elapsedTime}ms`;
+                        document.getElementById('time-2').style = "color:#ffd800; padding-top: 3px;";
+                        document.getElementById('sta-2').innerHTML = "较卡";
+                        document.getElementById('sta-2').style = "color:#ffd800;";
+                    }
+                    else if (elapsedTime <= 500) {
+                        document.getElementById('time-2').innerHTML = `${elapsedTime}ms`;
+                        document.getElementById('time-2').style = "color:#ff0000; padding-top: 3px;";
+                        document.getElementById('sta-2').innerHTML = "卡顿";
+                        document.getElementById('sta-2').style = "color:#ff0000;";
+                    }
+                    else {
+                        document.getElementById('time-2').innerHTML = `超高`;
+                        document.getElementById('time-2').style = "color:#ff0000; padding-top: 0px;";
+                        document.getElementById('sta-2').innerHTML = "极卡";
+                        document.getElementById('sta-2').style = "color:#ff0000;";
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('time-2').innerHTML = `无法估计`;
+                    document.getElementById('time-2').style = "color:#ff0000; padding-top: 0px;";
+                    document.getElementById('sta-2').innerHTML = "离线";
+                    document.getElementById('sta-2').style = "color:#ff0000;";
+                });
+
+            let timeS = new Date().getTime();
+            fetch(`http://${Path}`)
+                .then(response => {
+                    if (response.ok) {
+                        const endTimeS = new Date().getTime();
+                        const elapsedTimeS = endTimeS - timeS;
+                        if (elapsedTimeS <= 50) {
+                            document.getElementById('time-1').innerHTML = `${elapsedTimeS}ms`;
+                            document.getElementById('time-1').style = "color:rgb(0, 201, 46); padding-top: 3px;";
+                            document.getElementById('sta-1').innerHTML = "流畅";
+                            document.getElementById('sta-1').style = "color:rgb(0, 201, 46);";
+                        }
+                        else if (elapsedTimeS <= 100) {
+                            document.getElementById('time-1').innerHTML = `${elapsedTimeS}ms`;
+                            document.getElementById('time-1').style = "color:#ff7900; padding-top: 3px;";
+                            document.getElementById('sta-1').innerHTML = "微卡";
+                            document.getElementById('sta-1').style = "color:#ff7900;";
+                        }
+                        else if (elapsedTimeS <= 200) {
+                            document.getElementById('time-1').innerHTML = `${elapsedTimeS}ms`;
+                            document.getElementById('time-1').style = "color:#ffd800; padding-top: 3px;";
+                            document.getElementById('sta-1').innerHTML = "较卡";
+                            document.getElementById('sta-1').style = "color:#ffd800;";
+                        }
+                        else if (elapsedTimeS <= 500) {
+                            document.getElementById('time-1').innerHTML = `${elapsedTimeS}ms`;
+                            document.getElementById('time-1').style = "color:#ff0000; padding-top: 3px;";
+                            document.getElementById('sta-1').innerHTML = "卡顿";
+                            document.getElementById('sta-1').style = "color:#ff0000;";
+                        }
+                        else {
+                            document.getElementById('time-1').innerHTML = `超高`;
+                            document.getElementById('time-1').style = "color:#ff0000; padding-top: 0px;";
+                            document.getElementById('sta-1').innerHTML = "极卡";
+                            document.getElementById('sta-1').style = "color:#ff0000;";
+                        }
+                    }
+                    else {
+                        document.getElementById('time-1').innerHTML = `无法估计`;
+                        document.getElementById('time-1').style = "color:#ff0000; padding-top: 0px;";
+                        document.getElementById('sta-1').innerHTML = "离线";
+                        document.getElementById('sta-1').style = "color:#ff0000;";
+                    }
+                })
+        }
+        function init() {
+            document.querySelector('#login-box').style = "display: none;";
+            document.querySelector('#reg-box').style = "display: none;";
+            var name = getcookie('name');
+            var mod = getcookie('mod');
+            var str = getcookie('str');
+            CheckUser();
+            document.getElementById('sta-1').style = "color:#ff0000;";
+            document.getElementById('sta-2').style = "color:#ff0000;";
+            document.getElementById('time-1').style = "color:#ff0000;";
+            document.getElementById('time-2').style = "color:#ff0000;";
+            CheckServer();
+        }
+        init();
+        setInterval(() => {
+            CheckServer();
+        }, 1000);
+    </script>
+</body>
+
+</html>
