@@ -1,17 +1,1 @@
-[
-  {
-    "pid": "ZB0001",
-    "input": "1000000 5000000",
-    "output": "6000000"
-  },
-  {
-    "pid": "ZB0002",
-    "input": "5\n2 8 3 16 7",
-    "output": "2 3 7"
-  },
-  {
-    "pid": "ZB0003",
-    "input": "16 4\nKKFPFPKKPFFPKPPF\n1 3 4 2\n2",
-    "output": "KKKKKFPPFFFFPPPP"
-  }
-]
+[]
